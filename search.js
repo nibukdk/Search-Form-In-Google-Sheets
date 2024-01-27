@@ -8,6 +8,9 @@ var nameRangeNotation = 'A2:A'
 var descriptionRangeNotation = 'F2:F'
 var quantityRangeNotation = 'E2:E'
 
+/**
+ * The main function assigned to search button in the spreadsheet. It orchestrates search opearaion.
+ */
 function search() {
   try {
     SpreadsheetApp.getActiveSpreadsheet().toast("Searching Throught Your Database...", 'Searching');
@@ -53,8 +56,8 @@ function search() {
     // console.log(e)
     if (e.Error === SEARCH_STATUS.AND_SEARCH_FAILURE || e.Error === SEARCH_STATUS.SEARCH_FAILURE) {
       SpreadsheetApp.getActiveSpreadsheet().toast(SEARCH_STATUS.SEARCH_FAILURE, 'Not Found!');
-    
-    }else{
+
+    } else {
       SpreadsheetApp.getActiveSpreadsheet().toast(`<font color="red"> ${e} </font>`, 'Error!');
 
     }
@@ -62,21 +65,29 @@ function search() {
   }
 }
 
-
+/**
+ * Performs "AND" search for the given keywords in their respective columns Last Name, Descroption and Quantity for 
+ * tabs 2021, 2022, 2023. Returns new nested arrays for search results to be filled in search spreadsheet.
+ * @param {String} name 
+ * @param {String} description 
+ * @param {String} quantity 
+ * @returns {Array<Array<String>>?} - [[],[],[]]
+ */
 function andSearch(name = null, description = null, quantity = null) {
+  
   // get matching index for each sheet.
-  const _2021SheetNameSearchIndexes = searchSheetByColumn(_2021Sheet, nameRangeNotation, name);
-  const _2021SheetQuantitySearchIndexes = searchSheetByColumn(_2021Sheet, quantityRangeNotation, quantity);
-  const _2021SheetDescriptionSearchIndexes = searchSheetByColumn(_2021Sheet, descriptionRangeNotation, description);
+  const _2021SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2021Sheet, nameRangeNotation, name);
+  const _2021SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2021Sheet, quantityRangeNotation, quantity);
+  const _2021SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2021Sheet, descriptionRangeNotation, description);
 
 
-  const _2022SheetNameSearchIndexes = searchSheetByColumn(_2022Sheet, nameRangeNotation, name);
-  const _2022SheetQuantitySearchIndexes = searchSheetByColumn(_2022Sheet, quantityRangeNotation, quantity);
-  const _2022SheetDescriptionSearchIndexes = searchSheetByColumn(_2022Sheet, descriptionRangeNotation, description);
+  const _2022SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2022Sheet, nameRangeNotation, name);
+  const _2022SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2022Sheet, quantityRangeNotation, quantity);
+  const _2022SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2022Sheet, descriptionRangeNotation, description);
 
-  const _2023SheetNameSearchIndexes = searchSheetByColumn(_2023Sheet, nameRangeNotation, name);
-  const _2023SheetQuantitySearchIndexes = searchSheetByColumn(_2023Sheet, quantityRangeNotation, quantity);
-  const _2023SheetDescriptionSearchIndexes = searchSheetByColumn(_2023Sheet, descriptionRangeNotation, description);
+  const _2023SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2023Sheet, nameRangeNotation, name);
+  const _2023SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2023Sheet, quantityRangeNotation, quantity);
+  const _2023SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2023Sheet, descriptionRangeNotation, description);
 
 
   // matching indexes of rows in AND search
@@ -103,21 +114,28 @@ function andSearch(name = null, description = null, quantity = null) {
 
 }
 
-
+/**
+ * Performs "OR" search for the given keywords in their respective columns Last Name, Descroption and Quantity for 
+ * tabs 2021, 2022, 2023. Returns new nested arrays for search results to be filled in search spreadsheet.
+ * @param {String} name 
+ * @param {String} description 
+ * @param {String} quantity 
+ * @returns {Array<Array<String>>?} - [[],[],[]]
+ */
 function orSearch(name = null, description = null, quantity = null) {
   // get matching index for each sheet.
-  const _2021SheetNameSearchIndexes = searchSheetByColumn(_2021Sheet, nameRangeNotation, name);
-  const _2021SheetQuantitySearchIndexes = searchSheetByColumn(_2021Sheet, quantityRangeNotation, quantity);
-  const _2021SheetDescriptionSearchIndexes = searchSheetByColumn(_2021Sheet, descriptionRangeNotation, description);
+  const _2021SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2021Sheet, nameRangeNotation, name);
+  const _2021SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2021Sheet, quantityRangeNotation, quantity);
+  const _2021SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2021Sheet, descriptionRangeNotation, description);
 
 
-  const _2022SheetNameSearchIndexes = searchSheetByColumn(_2022Sheet, nameRangeNotation, name);
-  const _2022SheetQuantitySearchIndexes = searchSheetByColumn(_2022Sheet, quantityRangeNotation, quantity);
-  const _2022SheetDescriptionSearchIndexes = searchSheetByColumn(_2022Sheet, descriptionRangeNotation, description);
+  const _2022SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2022Sheet, nameRangeNotation, name);
+  const _2022SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2022Sheet, quantityRangeNotation, quantity);
+  const _2022SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2022Sheet, descriptionRangeNotation, description);
 
-  const _2023SheetNameSearchIndexes = searchSheetByColumn(_2023Sheet, nameRangeNotation, name);
-  const _2023SheetQuantitySearchIndexes = searchSheetByColumn(_2023Sheet, quantityRangeNotation, quantity);
-  const _2023SheetDescriptionSearchIndexes = searchSheetByColumn(_2023Sheet, descriptionRangeNotation, description);
+  const _2023SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2023Sheet, nameRangeNotation, name);
+  const _2023SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2023Sheet, quantityRangeNotation, quantity);
+  const _2023SheetDescriptionSearchIndexes = description === "" ? [] : searchSheetByColumn(_2023Sheet, descriptionRangeNotation, description);
 
   // get values from those indexes
   const _2021SheetNameSearch = fetchDataByRowIndexes(_2021Sheet, _2021SheetNameSearchIndexes);
