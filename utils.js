@@ -13,7 +13,7 @@ const SEARCH_STATUS = {
  */
 function fillSearchWithResults(oldData, newData) {
     // console.log("Inside fillSearchWithResults() old data:", oldData.length);
-    if (oldData.length > 0) {
+    if (oldData.length >=8) {
         searchSheet.getRange(8, 1, oldData.length-7, 9).clear(); // clear until last filled data
     }
     SpreadsheetApp.flush();
