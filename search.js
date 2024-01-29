@@ -8,19 +8,19 @@ var nameRangeNotation = 'A2:A'
 var descriptionRangeNotation = 'F2:F'
 var quantityRangeNotation = 'E2:E'
 
+var clientName = searchSheet.getRange('B2:C2').getValue();
+var quantity = searchSheet.getRange('E2').getValue();
+var description = searchSheet.getRange('G2:H2').getValue();
+var hasIncludeAllSelected = searchSheet.getRange('G4:G5').getValue();
+
+var isAllSearchTermFilled = clientName != "" && description != "" && quantity != "" ? true : false;
+
 /**
  * The main function assigned to search button in the spreadsheet. It orchestrates search opearaion.
  */
 function search() {
   try {
     SpreadsheetApp.getActiveSpreadsheet().toast("Searching Throught Your Database...", 'Searching');
-
-    const clientName = searchSheet.getRange('B2:C2').getValue();
-    const quantity = searchSheet.getRange('E2').getValue();
-    const description = searchSheet.getRange('G2:H2').getValue();
-    const hasIncludeAllSelected = searchSheet.getRange('G4:G5').getValue();
-
-
     // console.log(clientName)
     // console.log(quantity)
     // console.log(description)
@@ -54,11 +54,11 @@ function search() {
 
   } catch (e) {
     // console.log(e)
-    if (e.Error === SEARCH_STATUS.AND_SEARCH_FAILURE || e.Error === SEARCH_STATUS.SEARCH_FAILURE) {
+    if (e.Error === SEARCH_STATUS.SEARCH_FAILURE) {
       SpreadsheetApp.getActiveSpreadsheet().toast(SEARCH_STATUS.SEARCH_FAILURE, 'Not Found!');
 
     } else {
-      SpreadsheetApp.getActiveSpreadsheet().toast(`<font color="red"> ${e} </font>`, 'Error!');
+      SpreadsheetApp.getActiveSpreadsheet().toast(e, 'Error!');
 
     }
 
@@ -74,7 +74,7 @@ function search() {
  * @returns {Array<Array<String>>?} - [[],[],[]]
  */
 function andSearch(name = null, description = null, quantity = null) {
-  
+
   // get matching index for each sheet.
   const _2021SheetNameSearchIndexes = name === "" ? [] : searchSheetByColumn(_2021Sheet, nameRangeNotation, name);
   const _2021SheetQuantitySearchIndexes = quantity === "" ? [] : searchSheetByColumn(_2021Sheet, quantityRangeNotation, quantity);
