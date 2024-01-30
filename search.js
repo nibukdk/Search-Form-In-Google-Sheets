@@ -13,7 +13,7 @@ var quantity = searchSheet.getRange('E2').getValue();
 var description = searchSheet.getRange('G2:H2').getValue();
 var hasIncludeAllSelected = searchSheet.getRange('G4:G5').getValue();
 
-var isAllSearchTermFilled = clientName != "" && description != "" && quantity != "" ? true : false;
+var numberOfInputFieldEntered = [clientName, description, quantity].filter(String).length;
 
 /**
  * The main function assigned to search button in the spreadsheet. It orchestrates search opearaion.
