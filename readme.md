@@ -2,6 +2,10 @@
 
 A straightforward Google Apps Script tutorial to create a Search Form In Google Sheets. In this tutorial, we'll create a Search Form with three Input fields corresponding to 3 columns in each Spreadsheet tab. You'll be able to perform both "AND" and "OR" search logic using these three input fields. By the end of this tutorial, this search Form will scan through all three spreadsheet tabs and return results in the search sheet.
 
+**Blog**
+
+If you perfer reading over watching then please read [this tutorial](https://www.freecodecamp.org/news/create-search-form-in-google-sheets/) for this project @FreeCodeCamp.
+
 
 **YouTube Tutorial:**
 
